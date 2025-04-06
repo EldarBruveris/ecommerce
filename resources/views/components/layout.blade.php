@@ -35,21 +35,24 @@
                       </div>
                     </div>
                   </div>
-                  <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6">
-  
-                      <div class="relative ml-3">
-                        <div>
-                          <button type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                            <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">Open user menu</span>
-                            <img class="size-8 rounded-full" src="/storage/cat.jpg" alt="">
-                          </button>
-                        </div>
-                      </div>
 
-                    </div>
-                  </div>
+                  @auth
+                    <x-signed></x-signed>  
+                  @endauth
+                  
+                  @guest
+                    <div class="w-36 flex items-center justify-between">
+                      <x-nav-link href="/login" :active="request()->is('login')">
+                        Log in
+                      </x-nav-link>
+                      <x-nav-link href="/register" :active="request()->is('register')">
+                        Sign in
+                      </x-nav-link>
+                    </div>  
+                  @endguest
+                  
+
+
                   <div class="-mr-2 flex md:hidden">
                     <!-- Mobile menu button -->
                     <button type="button" class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden" aria-controls="mobile-menu" aria-expanded="false">
@@ -110,6 +113,7 @@
           </div>
   
     </body>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </html>
 
 
