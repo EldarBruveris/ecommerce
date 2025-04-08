@@ -41,10 +41,10 @@
 
             <div class="mt-5 grid grid-cols-1 gap-x-6 sm:grid-cols-6">
                 <div class="sm:col-span-4">
-                  <x-form-label for="password_comfirmation">Confirm your password</x-form-label>
+                  <x-form-label for="password_confirmation">Confirm your password</x-form-label>
                   <div class="mt-2">
-                    <x-form-input name="password_comfirmation" id="password_comfirmation" placeholder="qW12erty" type='password' required></x-form-input>
-                    <x-form-error name='password_comfirmation'/>
+                    <x-form-input name="password_confirmation" id="password_confirmation" placeholder="qW12erty" type='password' required></x-form-input>
+                    <x-form-error name='password_confirmation'/>
                   </div>
                 </div>
             </div>
