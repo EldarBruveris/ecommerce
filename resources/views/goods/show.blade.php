@@ -1,12 +1,12 @@
 <x-layout>
     <x-slot:heading>
-        {{ $good->item_name }}
+      {{ $good->name }}
     </x-slot:heading>
     
     <div class="mx-auto max-w-7xl px-6 py-10 bg-gray-200 rounded-lg">
       <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
         <div class="">
-            <p class="text-lg/8 text-black-600">{{ $good->item_description }}</p>
+            <p class="text-lg/8 text-black-600">{{ $good->description }}</p>
             <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
               <div class="relative pl-9">
                 <input type="checkbox" name="additions" id="deliver" value="deliver">

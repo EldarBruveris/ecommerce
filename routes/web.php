@@ -15,6 +15,9 @@ Route::get('/', function () {
 
 Route::get('/goods', [GoodController::class, 'all']);
 Route::get("/goods/{id}", [GoodController::class, 'find']);
+Route::get("/goods/{id}/edit", [GoodController::class, 'edit']);
+Route::patch("/goods/{id}", [GoodController::class, 'update']);
+Route::delete("/goods/{id}", [GoodController::class, 'destroy']);
 
 Route::get("/register", [RegisteredUserController::class, 'create']);
 Route::post("/register", [RegisteredUserController::class, 'store']);

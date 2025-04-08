@@ -17,8 +17,8 @@ class GoodFactory extends Factory
     public function definition(): array
     {
         return [
-            'item_name' => fake()->text(),
-            'item_description' => fake()->text(),
+            'name' => fake()->text(8),
+            'description' => fake()->text(),
             'img_url' => fake()->imageUrl(),
             'cost' => fake()->randomFloat(2, 10, 100)
         ];
