@@ -10,13 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class RoleUser extends Model
 {
     use HasFactory;
-
-    // public function role(): HasOne{
-    //     return $this->hasOne(Role::class);
-    // }
-
-    // public function user(): BelongsTo{
-    //     return $this->belongsTo(User::class);
-    // }
     
+    protected $fillable = ['role_id', 'user_id'];
 }

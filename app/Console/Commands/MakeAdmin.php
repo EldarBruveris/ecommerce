@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\RoleUser;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Console\Command;
 
 class MakeAdmin extends Command
@@ -30,10 +32,15 @@ class MakeAdmin extends Command
         $email = $this->ask('wirte an email');
         $pass = $this->ask('create a password');
 
-        User::factory()->create([
+        $user = User::create([
             'name' => $name,
             'email' => $email,
             'password' => $pass,
+        ]);
+
+        RoleUser::create([
+            'role_id' => '1',
+            'user_id' => "$user->id",
         ]);
 
         // User::create(['']);
