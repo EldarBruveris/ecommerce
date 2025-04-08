@@ -2,7 +2,7 @@
     <x-slot:heading>
         Goods
     </x-slot:heading>
-    
+
     <div class="grid grid-cols-3 gap-4">
         @foreach ($goods as $good)    
             <div class="w-200 rounded-lg bg-gray-800 p-5 flex flex-col h-full">

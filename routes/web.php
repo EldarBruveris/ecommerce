@@ -3,6 +3,8 @@
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Models\Good;
+use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/goods', function () {
     $goods = Good::all();
-
+    dd(Auth::user()->isAdmin());
     return view('goods.index',[
         'goods' => $goods
     ]);

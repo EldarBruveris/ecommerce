@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     
     public function roles(): BelongsToMany{
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_users');
     }
 
     /**
@@ -48,4 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isAdmin(): bool
+    {
+        foreach($this->roles as $role){
+            if($role->attributesToArray()['name'] == 'admin') return true;
+        }
+        return false;
+    }
 }
