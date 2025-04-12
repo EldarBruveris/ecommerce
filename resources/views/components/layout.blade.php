@@ -41,12 +41,12 @@
                   @endauth
                   
                   @guest
-                    <div class="w-36 flex items-center justify-between">
+                    <div class="w-48 flex items-center justify-between">
                       <x-nav-link href="/login" :active="request()->is('login')">
                         Log in
                       </x-nav-link>
                       <x-nav-link href="/register" :active="request()->is('register')">
-                        Sign in
+                        Sign up
                       </x-nav-link>
                     </div>  
                   @endguest

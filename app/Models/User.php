@@ -49,11 +49,5 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function isAdmin(): bool
-    {   
-        foreach($this->roles as $role){
-            if($role->attributesToArray()['name'] == 'admin') return true;
-        }
-        return false;
-    }
+    
 }

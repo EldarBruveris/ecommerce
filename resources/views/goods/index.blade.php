@@ -15,20 +15,20 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                     </svg>
                 </a>
-                @if ($isAdmin)
-                <div class="flex w-full py-2 justify-between">
-                    <a href="goods/{{ $good->id }}/edit" class="text-white rounded-lg px-3 py-2 bg-green-600 hover:bg-green-800 transition-colors duration-300">
-                        Edit
-                    </a>
-                    <button form='delete-form' class="text-white rounded-lg px-3 py-2 bg-red-600 hover:bg-red-800 transition-colors duration-300">
-                        Delete
-                    </button>
-                    <form method="POST" id="delete-form" class="hidden" action="goods/{{ $good->id }}">
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                </div>
-                @endif
+                @can('edit')
+                    <div class="flex w-full py-2 justify-between">
+                        <a href="goods/{{ $good->id }}/edit" class="text-white rounded-lg px-3 py-2 bg-green-600 hover:bg-green-800 transition-colors duration-300">
+                            Edit
+                        </a>
+                        <button form='delete-form' class="text-white rounded-lg px-3 py-2 bg-red-600 hover:bg-red-800 transition-colors duration-300">
+                            Delete
+                        </button>
+                        <form method="POST" id="delete-form" class="hidden" action="goods/{{ $good->id }}">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
+                @endcan
             </div>
         @endforeach
     </div>

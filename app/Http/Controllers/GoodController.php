@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\RoleEnum;
 use App\Models\Good;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class GoodController extends Controller
 {
     public function all()
     {
-        $goods = Good::all();
+        $goods = Good::orderByDesc('updated_at')->get();
         return view('goods.index',[
             'goods' => $goods,
-            'isAdmin' => empty(Auth::user()) ? false : Auth::user()->isAdmin() 
         ]);
     }
 
@@ -44,7 +45,6 @@ class GoodController extends Controller
     public function destroy($id)
     {
         Good::findOrFail($id)->delete();
-
         return redirect('/goods');
     }
 }

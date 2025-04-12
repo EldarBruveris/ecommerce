@@ -26,7 +26,7 @@ class SessionController extends Controller
             ]);
         }
 
-        request()->session()->regenerate();
+        
 
         return redirect('/goods');
     }
