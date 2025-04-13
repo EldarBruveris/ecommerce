@@ -7,6 +7,7 @@ use App\Models\Good;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class GoodController extends Controller
 {
@@ -32,12 +33,28 @@ class GoodController extends Controller
 
     public function update($id)
     {
-        $attributes = request()->validate([
+        $validated = request()->validate([
             'name' => ['required', 'min:3', 'max:20'],
-            'description' => ['required', 'min:3', 'max:254']
+            'description' => ['required', 'min:3', 'max:254'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048']  
         ]);
-
-        Good::findOrFail($id)->update($attributes);
+        
+        $good = Good::findOrFail($id);
+        
+        $good->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+        ]);
+        
+        if (request()->hasFile('image')) {
+            $image = request()->file('image');            
+            $imageName = time() . '.' . request()->file('image')->extension();
+            $path = $image->storeAs('public/goods', $imageName);
+            
+            $good->update([
+                'image_url' => str_replace('public/', '', $path)
+            ]);
+        }
 
         return redirect('/goods');
     }

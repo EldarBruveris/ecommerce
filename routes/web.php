@@ -16,9 +16,9 @@ Route::get('/', function () {
 
 Route::get('/goods', [GoodController::class, 'all']);
 Route::get("/goods/{id}", [GoodController::class, 'find']);
-Route::get("/goods/{id}/edit", [GoodController::class, 'edit'])->middleware('auth')->can('edit');
-Route::patch("/goods/{id}", [GoodController::class, 'update'])->middleware('auth')->can('edit');
-Route::delete("/goods/{id}", [GoodController::class, 'destroy'])->middleware('auth')->can('edit');
+Route::get("/goods/{id}/edit", [GoodController::class, 'edit'])->middleware('auth')->can('edit', Good::class);
+Route::patch("/goods/{id}", [GoodController::class, 'update'])->middleware('auth')->can('edit', Good::class);
+Route::delete("/goods/{id}", [GoodController::class, 'destroy'])->middleware('auth')->can('edit', Good::class);
 
 Route::get("/register", [RegisteredUserController::class, 'create']);
 Route::post("/register", [RegisteredUserController::class, 'store']);

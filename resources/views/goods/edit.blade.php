@@ -29,6 +29,16 @@
                   </div>
                 </div>
             </div>
+
+            <div class="mt-5 grid grid-cols-1 gap-x-6 sm:grid-cols-6">
+              <div class="sm:col-span-4">
+                <x-form-label for="image">Image</x-form-label>
+                <div class="mt-2">
+                  <x-form-input name="image" type="file" id="image" value=""></x-form-input>
+                  <x-form-error name='image'/>
+                </div>
+              </div>
+          </div>
         
         <div class="mt-6 flex items-center justify-between gap-x-6">
             <div>
