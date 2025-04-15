@@ -8,7 +8,7 @@
         @method('PATCH')
 
         <div class="space-y-5">
-          <div class="border-b border-gray-900/10 pb-5">
+          <div class="border-b border-gray-900/10 pb-5" enctype="multipart/form-data">
 
             <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
               <div class="sm:col-span-4">
@@ -38,6 +38,7 @@
                   <x-form-error name='image'/>
                 </div>
               </div>
+              {{-- ВОТ ТУТ ПАДАЕТ ОШИБКА "the file must be type of image" --}}
           </div>
         
         <div class="mt-6 flex items-center justify-between gap-x-6">
