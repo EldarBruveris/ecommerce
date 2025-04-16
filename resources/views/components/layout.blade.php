@@ -32,6 +32,9 @@
                       <div class="ml-10 flex items-baseline space-x-4">
                         <x-nav-link href="/" :active="request()->is('/')">Home page</x-nav-link>
                         <x-nav-link href="/goods" :active="request()->is('goods')">Goods</x-nav-link>
+                        @can('edit', App\Models\Good::class)
+                          <x-nav-link href="/goods/create" :active="request()->is('goods/create')">Create a good</x-nav-link>
+                        @endcan
                       </div>
                     </div>
                   </div>

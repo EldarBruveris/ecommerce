@@ -9,5 +9,5 @@ class Good extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'img_url'];
+    protected $fillable = ['name', 'description', 'img_url', 'cost'];
 }

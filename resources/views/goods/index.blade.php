@@ -5,7 +5,7 @@
 
     <div class="grid grid-cols-3 gap-4">
         @foreach ($goods as $good)    
-            <div class="w-200 rounded-lg bg-gray-800 p-5 flex flex-col h-full">
+            <div class="w-200 rounded-lg bg-gray-800 p-5 flex flex-col h-full" id="good{{ $good->id }}">
                 <img class="w-full h-auto max-h-64 object-contain" src="{{ $good->img_url }}" alt="" />
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $good->name }}</h5>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $good->description }}</p>
@@ -20,16 +20,31 @@
                         <a href="goods/{{ $good->id }}/edit" class="text-white rounded-lg px-3 py-2 bg-green-600 hover:bg-green-800 transition-colors duration-300">
                             Edit
                         </a>
-                        <button form='delete-form' class="text-white rounded-lg px-3 py-2 bg-red-600 hover:bg-red-800 transition-colors duration-300">
+                        <button form='delete-form' class="text-white rounded-lg px-3 py-2 bg-red-600 hover:bg-red-800 transition-colors duration-300" onclick="deleteGood({{ $good->id }})">
                             Delete
                         </button>
-                        <form method="POST" id="delete-form" class="hidden" action="goods/{{ $good->id }}">
-                            @csrf
-                            @method('DELETE')
-                        </form>
+                        
                     </div>
                 @endcan
             </div>
         @endforeach
     </div>
+    <script>
+        function deleteGood(goodId){
+            fetch(`/goods/${goodId}`, {method: "DELETE", headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"}}, )
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                alert(data.message);
+                if(data.success == true){
+                  const block = document.getElementById(`good${goodId}`);
+                  if (block) {
+                    block.remove();
+                  }
+                }
+            })
+        }
+    </script>
 </x-layout>

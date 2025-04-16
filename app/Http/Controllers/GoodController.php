@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enum\RoleEnum;
 use App\Models\Good;
+use App\Services\GoodService;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +19,36 @@ class GoodController extends Controller
         return view('goods.index',[
             'goods' => $goods,
         ]);
+    }
+
+    public function create(){
+        return view('goods.create');
+    }
+
+    public function post()
+    {
+        $validated = request()->validate([
+            'name' => ['required', 'min:3', 'max:20'],
+            'description' => ['required', 'min:3', 'max:254'],
+            'cost' => ['numeric', 'min:1'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],   
+        ]);
+        if (request()->hasFile('image')) {
+            $image = request()->file('image');            
+            $imageName = time() . '.' . request()->file('image')->extension();
+            $path = $image->storeAs('public/', $imageName);
+            $validated['image'] = str_replace('public/', 'storage/', $path);
+        }
+
+        $create = new GoodService;
+        $create->create([[
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'cost' => $validated['cost'],
+            'img_url' => $validated['image'] ?? ''
+        ]]);
+
+        return redirect('/goods');
     }
 
     public function find($id)
@@ -47,12 +79,13 @@ class GoodController extends Controller
         ]);
         
         if (request()->hasFile('image')) {
+            
             $image = request()->file('image');            
             $imageName = time() . '.' . request()->file('image')->extension();
-            $path = $image->storeAs('public/goods', $imageName);
+            $path = $image->storeAs('public/', $imageName);
             
             $good->update([
-                'image_url' => str_replace('public/', '', $path)
+                'img_url' => str_replace('public/', 'storage/', $path)
             ]);
         }
 
@@ -62,6 +95,6 @@ class GoodController extends Controller
     public function destroy($id)
     {
         Good::findOrFail($id)->delete();
-        return redirect('/goods');
+        return response()->json(['success' => true, 'message' => 'Good is deleted']);
     }
 }
