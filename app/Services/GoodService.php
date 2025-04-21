@@ -10,6 +10,6 @@ class GoodService{
     }
 
     public function update(Good $good, array $data){
-        
+        return $good->update($data);
     }
 }

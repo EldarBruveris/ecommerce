@@ -41,12 +41,12 @@ class GoodController extends Controller
         }
 
         $create = new GoodService;
-        $create->create([[
+        $create->create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'cost' => $validated['cost'],
             'img_url' => $validated['image'] ?? ''
-        ]]);
+        ]);
 
         return redirect('/goods');
     }
@@ -70,24 +70,25 @@ class GoodController extends Controller
             'description' => ['required', 'min:3', 'max:254'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048']  
         ]);
-        
         $good = Good::findOrFail($id);
-        
-        $good->update([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-        ]);
-        
+
         if (request()->hasFile('image')) {
             
             $image = request()->file('image');            
             $imageName = time() . '.' . request()->file('image')->extension();
             $path = $image->storeAs('public/', $imageName);
-            
-            $good->update([
-                'img_url' => str_replace('public/', 'storage/', $path)
-            ]);
+            $validated['image'] = str_replace('public/', 'storage/', $path);
         }
+        
+        
+        
+        $update = new GoodService;
+        $update->update($good ,[
+            'name' => $validated['name'],
+            'desription' => $validated['description'],
+            'img_url' => $validated['image']
+        ]);
+        
 
         return redirect('/goods');
     }
